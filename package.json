@@ -7,7 +7,8 @@
     "build:h5": "uni build",
     "build:mp-weixin": "uni build -p mp-weixin",
     "lint": "eslint . --fix",
-    "upload": "npm run build:mp-weixin && node autoUpload.js"
+    "upload": "npm run build:mp-weixin && node autoUpload.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@alova/adapter-uniapp": "^1.1.1",
