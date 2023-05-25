@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useRequest } from 'alova'
 import BasicButton from '@/components/BasicButton/index.vue'
 import { getInfoConfig } from '@/api'
-import { useRequest } from 'alova';
 
 const title = ref('Hello')
 
@@ -13,9 +13,8 @@ function handleRouter() {
   router.pushTab({ path: '/pages/test/index' })
 }
 
-
 function handleRequest() {
-  const data = useRequest(getInfoConfig, { immediate: false });
+  const data = useRequest(getInfoConfig, { immediate: false })
   // await getInfoConfig({
   //   key: 'xiaoying.loanproduct.h5.faceAuthority',
   // })

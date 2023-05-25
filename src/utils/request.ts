@@ -1,11 +1,11 @@
-import { createAlova } from 'alova';
-import AdapterUniapp from '@alova/adapter-uniapp';
+import { createAlova } from 'alova'
+import AdapterUniapp from '@alova/adapter-uniapp'
 
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL
 const alovaInstance = createAlova({
-    baseURL: BASE_URL,
-    ...AdapterUniapp()
-});
+  baseURL: BASE_URL,
+  ...AdapterUniapp(),
+})
 
 export const request = alovaInstance
 
