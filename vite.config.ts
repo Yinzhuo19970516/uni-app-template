@@ -31,7 +31,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       host: true,
       proxy: {
         '^/h5': {
-          target: env.VITE_BASE_URL,
+          target: env.VITE_APP_BASE_URL,
           changeOrigin: true,
           rewrite: path => path.replace(/^\/h5/, ''),
         },
@@ -75,7 +75,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             'uni-mini-router': ['useRouter', 'useRoute'],
           },
         ],
-        dts: 'typings/auto-imports.d.ts',
+        dts: 'auto-imports.d.ts',
         dirs: ['src/store'],
         eslintrc: {
           enabled: true,

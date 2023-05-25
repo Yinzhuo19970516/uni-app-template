@@ -1,12 +1,12 @@
 {
   "include": [
+    "src/types/*.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     "vite.config.*",
-    "typings/*.ts",
-    "typings/*.d.ts"
+    "auto-imports.d.ts"
   ], // 指定要包含在编译中的文件匹配列表
   "exclude": [], // 指定要从编译中排除的文件列表
   "compilerOptions": {
