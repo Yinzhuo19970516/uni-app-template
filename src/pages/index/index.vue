@@ -13,11 +13,11 @@ function handleRouter() {
   router.pushTab({ path: '/pages/test/index' })
 }
 
-function handleRequest() {
-  const data = useRequest(getInfoConfig, { immediate: false })
-  // await getInfoConfig({
-  //   key: 'xiaoying.loanproduct.h5.faceAuthority',
-  // })
+async function handleRequest() {
+  const data = await getInfoConfig({
+    key: 'xiaoying.loanproduct.h5.faceAuthority',
+  })
+  console.log(data)
 }
 </script>
 

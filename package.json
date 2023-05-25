@@ -11,7 +11,6 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@alova/adapter-uniapp": "^1.1.1",
     "@dcloudio/uni-app": "3.0.0-alpha-3080120230428001",
     "@dcloudio/uni-app-plus": "3.0.0-alpha-3080120230428001",
     "@dcloudio/uni-components": "3.0.0-alpha-3080120230428001",
@@ -25,7 +24,6 @@
     "@dcloudio/uni-mp-toutiao": "3.0.0-alpha-3080120230428001",
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-3080120230428001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-3080120230428001",
-    "alova": "^2.5.2",
     "pinia": "2.0.34",
     "vue": "^3.3.4"
   },

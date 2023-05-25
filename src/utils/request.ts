@@ -1,77 +1,73 @@
-import { createAlova } from 'alova'
-import AdapterUniapp from '@alova/adapter-uniapp'
+import { RequestParams, RequestResponse } from '@/types/response'
+import { ShowLoading, HideLoading, Toast } from '@/utils/tips'
 
-const BASE_URL = import.meta.env.VITE_APP_BASE_URL
-const alovaInstance = createAlova({
-  baseURL: BASE_URL,
-  ...AdapterUniapp(),
-})
+const defaultParams: RequestParams = {
+    url: '',
+    method: 'POST',
+    isShowLoading: true,
+    isThrowError:false,
+    params: {},
+    contentType: 'application/json'
+}
+let requestCount = 0
 
-export const request = alovaInstance
+const addLoading = () => {
+    // 增加loading 如果pending请求数量等于1，弹出loading, 防止重复弹出
+    requestCount++
+    if (requestCount === 1) ShowLoading()
+}
 
-// import { createAlova } from 'alova'
-// import AdapterUniapp from '@alova/adapter-uniapp'
-// import { ContentTypeEnum,RESPONSE } from '@/enums/httpEnum'
-//
-// const HEADER = {
-//   'Content-Type': ContentTypeEnum.JSON,
-//   'Accept': 'application/json, text/plain, */*',
-// }
-//
-// /**
-//  * alova 请求实例
-//  * @link https://github.com/alovajs/alova
-//  */
-// const BASE_URL = import.meta.env.VITE_APP_BASE_URL
-//
-// const alovaInstance = createAlova({
-//   baseURL: BASE_URL,
-//   ...AdapterUniapp(),
-//   timeout: 5000,
-//   beforeRequest: (method) => {
-//     method.config.headers = Object.assign(method.config.headers, HEADER);
-//   },
-//   responsed: {
-//       /**
-//        * 请求成功的拦截器
-//        * 第二个参数为当前请求的method实例，你可以用它同步请求前后的配置信息
-//        * @param response
-//        * @param method
-//        */
-//       onSuccess: async (response, method) => {
-//           const { config } = method;
-//           const { enableDownload, enableUpload } = config;
-//           // @ts-ignore
-//           const { statusCode, data: rawData } = response;
-//           const { code, message, data } = rawData as RESPONSE;
-//           if (statusCode === 200) {
-//               if (enableDownload) {
-//                   // 下载处理
-//                   return rawData;
-//               }
-//               if (enableUpload) {
-//                   // 上传处理
-//                   return rawData;
-//               }
-//               if (code === ResultEnum.SUCCESS) {
-//                   return data as any;
-//               }
-//           }
-//           message && Toast(message);
-//           return Promise.reject(rawData);
-//       },
-//
-//       /**
-//        * 请求失败的拦截器，请求错误时将会进入该拦截器。
-//        * 第二个参数为当前请求的method实例，你可以用它同步请求前后的配置信息
-//        * @param err
-//        * @param method
-//        */
-//       onError: (err, method) => {
-//           // error('Request Error!');
-//           return Promise.reject({ err, method });
-//       },
-//   },
-// })
-//
-// export const request = alovaInstance
+const cancelLoading = () => {
+    // 取消loading 如果pending请求数量等于0，关闭loading
+    requestCount--
+    if (requestCount === 0) {
+        HideLoading()
+    }
+}
+
+export default async function (requestParams: RequestParams): Promise<RequestResponse | any> {
+    requestParams = Object.assign(defaultParams, requestParams)
+    if(requestParams.isShowLoading) {
+        addLoading()
+    }
+    return new Promise((resolve, reject) => {
+        uni.request({
+            url: requestParams.url,
+            header: {
+                'Content-Type': requestParams.contentType || 'application/json',
+            },
+            data: requestParams.params,
+            timeout: 30000,
+            method: requestParams.method || 'POST',
+            success (response) {
+                const res = response.data as RequestResponse
+                const code = Number(res.errcode) || 0
+                res.code = code
+                if(res.errcode === -4) {
+                    // 跳转登录
+                }else if(res.errcode === 0) {
+                    resolve(res.data || res || {})
+                }else {
+                    if (requestParams.isThrowError) {
+                        reject(res)
+                    }else {
+                        Toast(res && res.errstr)
+                        reject(res)
+                    }
+                }
+
+            },
+            fail(err) {
+                setTimeout(() => {
+                    Toast('网络不给力啊，请您检查一下网络再试试吧')
+                }, 10)
+                reject(err)
+            },
+            complete () {
+                if(requestParams.isShowLoading) {
+                    cancelLoading()
+                }
+            }
+        })
+    })
+}

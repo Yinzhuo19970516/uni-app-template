@@ -33,7 +33,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         '^/h5': {
           target: env.VITE_APP_BASE_URL,
           changeOrigin: true,
-          rewrite: path => path.replace(/^\/h5/, ''),
+          rewrite: path => path.replace(/^\/h5/, '/h5'),
         },
       },
     },

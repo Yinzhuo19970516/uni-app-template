@@ -23,7 +23,7 @@ const title = ref('Hello Test')
       border-none
       cursor-pointer"
     >
-      Click me
+      测试unocss
     </button>
     <button
       p="y-2 x-4"
@@ -34,7 +34,7 @@ const title = ref('Hello Test')
       border="rounded-lg none "
       cursor="pointer"
     >
-      Click me
+      测试presetAttributify
     </button>
     <div class="i-ic-baseline-arrow-downward text-3xl bg-green-500" />
   </view>
