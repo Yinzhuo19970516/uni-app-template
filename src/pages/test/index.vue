@@ -12,18 +12,18 @@ const title = ref('Hello Test')
     </view>
     <button
       class="
-      py-2
-      px-4
-      font-semibold
-      rounded-lg
-      shadow-md
-      text-white
-      bg-green-500
-      hover:bg-green-700
-      border-none
-      cursor-pointer"
+      _u_py-2
+      _u_px-4
+      _u_font-semibold
+      _u_rounded-lg
+      _u_shadow-md
+      _u_text-white
+      _u_bg-green-500
+      _u_hover:bg-green-700
+      _u_border-none
+      _u_cursor-pointer"
     >
-      测试unocss
+      测试unocss preset
     </button>
     <button
       p="y-2 x-4"

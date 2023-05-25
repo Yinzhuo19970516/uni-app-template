@@ -4,7 +4,6 @@ import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import uni from '@dcloudio/vite-plugin-uni'
 import Unocss from 'unocss/vite'
-import { presetAttributify, presetIcons, presetUno } from 'unocss'
 
 import TransformPages from 'uni-read-pages-vite' // vite.config.ts
 import AutoImport from 'unplugin-auto-import/vite'
@@ -33,7 +32,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         '^/h5': {
           target: env.VITE_APP_BASE_URL,
           changeOrigin: true,
-          rewrite: path => path.replace(/^\/h5/, '/h5'),
+          rewrite: path => path.replace(/^\/h5/, 'h5'),
         },
       },
     },
@@ -53,13 +52,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     // 插件
     plugins: [
       uni(),
-      Unocss({
-        presets: [
-          presetUno(),
-          presetAttributify(),
-          presetIcons(),
-        ],
-      }),
+      Unocss(),
       // 自动导入
       AutoImport({
         include: [

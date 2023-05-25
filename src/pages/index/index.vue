@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRequest } from 'alova'
 import BasicButton from '@/components/BasicButton/index.vue'
 import { getInfoConfig } from '@/api'
 
